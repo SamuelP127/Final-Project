@@ -2,12 +2,12 @@
 #email containing all of these comments are then sent to admin every friday
 #What can brooklyn tech do better?
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import smtplib
 import json
 from datetime import datetime, timedelta
 from email.message import EmailMessage
-from apscheduler.schedulers.background import BackgroundScheduler
+#from apscheduler.schedulers.background import BackgroundScheduler
 #log in with School email for a security check
 
 app = Flask("__BTHSThoughts__")
@@ -16,6 +16,15 @@ reviews = []
 today = datetime.today()
 week_num = today.isocalendar()[1]
 week = "Week: " + str(week_num)
+
+@app.route('/')
+@app.route('/home')
+def home():
+    return render_template("main.html")
+
+@app.route('/about')
+def about():
+    return '<h3>This project\'s goal is for BTHS students to share their voice\'s and make positive change!</H3>'
 
 @app.route('/submit_review', methods = ['POST'])
 def submit_review():
@@ -33,4 +42,3 @@ def send_email():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
