@@ -20,11 +20,11 @@ week = "Week: " + str(week_num)
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template("main.html")
+    return render_template("Home.html")
 
 @app.route('/about')
 def about():
-    return '<h3>This project\'s goal is for BTHS students to share their voice\'s and make positive change!</H3>'
+    return render_template("About.html")
 
 @app.route('/submit_review', methods = ['POST'])
 def submit_review():
