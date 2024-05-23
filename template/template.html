@@ -8,17 +8,18 @@
 <body>
     <header>
         <div class="container">
-            <h1 class="logo">First Web App</h1>
+            <h1 class="logo">BTHS Reviews</h1>
             <strong>
                 <nav>
                     <ul class="menu">
-                        <li><a href="{{ url_for('home') }}">Home</a></li>
-                        <li><a href="{{ url_for('about') }}">About</a></li>
+                        <li><button class = "nav-button" onclick="location.href='{{ url_for('submit_review.html') }}'">Write A Review</button></li>
+                        <li><button class = "nav-button" onclick="location.href='{{ url_for('about.html') }}'">About</button></li>
                     </ul>
                 </nav>
             </strong>
         </div>
     </header>
+
 
     <div class="image-container">
         <img src="{{ url_for('static', filename='bths_logo.png') }}" alt="Logo">
