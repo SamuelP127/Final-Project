@@ -1,44 +1,41 @@
-#app that allows students to rate activities / food / teachers 
-#email containing all of these comments are then sent to admin every friday
-#What can brooklyn tech do better?
-
-from flask import Flask, request, jsonify, render_template
-import smtplib
-import json
+from flask import Flask, request, render_template, redirect, url_for
 from datetime import datetime, timedelta
-from email.message import EmailMessage
-#from apscheduler.schedulers.background import BackgroundScheduler
-#log in with School email for a security check
 
 app = Flask("__BTHSThoughts__")
 reviews = []
 
-today = datetime.today()
-week_num = today.isocalendar()[1]
-week = "Week: " + str(week_num)
-
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template("home.html")
+    # Calculate the current week number
+    today = datetime.today()
+    current_week_num = today.isocalendar()[1]
+    
+    # Filter reviews for the current week
+    current_week_reviews = [
+        review for review in reviews
+        if datetime.fromisoformat(review['timestamp']).isocalendar()[1] == current_week_num
+    ]
+    
+    return render_template("home.html", reviews=current_week_reviews, week_num=current_week_num, page='home')
 
 @app.route('/about')
 def about():
-    return render_template("about.html")
+    return render_template("about.html", page='about')
 
-@app.route('/submit_review', methods = ['POST'])
+@app.route('/submit_review', methods=['GET', 'POST'])
 def submit_review():
-    review_data = request.json
-    review_data['timestamp'] = datetime.now().isoformat()
-    reviews.append(review_data)
-    return jsonify(status="success", data={"review_submitted": review_data})
-
-def send_email():
-    msg = EmailMessage()
-    msg['Subject'] = "Students thoughts for week:{week}".format(week)
-    msg['From'] = "x@gmail.com"
-    msg['To'] = "qholmer@schools.nyc.gov"
-    content = ""
+    if request.method == 'POST':
+        reviewer = request.form['reviewer']
+        review = request.form['review']
+        review_data = {
+            'reviewer': reviewer,
+            'review': review,
+            'timestamp': datetime.now().isoformat()
+        }
+        reviews.append(review_data)
+        return redirect(url_for('home'))
+    return render_template("submit_review.html", page='submit_review')
 
 if __name__ == '__main__':
     app.run(debug=True)
