@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <title>BTHS Reviews</title>
-    </head>
-    <body>
-        {% extends "template.html" %}
-        {% block content %}
-        <h1>Reviews</h1>
-
-        {% endblock %}
-    </body>
+<head>
+    <meta charset="utf-8">
+    <title>BTHS Reviews</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/template.css') }}">
+</head>
+<body>
+    {% extends "template.html" %}
+    {% block content %}
+    <h1>Reviews For Week: {{ week_num }}</h1>
+    {% if reviews %}
+        <ul>
+        {% for review in reviews %}
+            <li>
+                <strong>{{ review.reviewer }}</strong> ({{ review.timestamp }}):<br>
+                {{ review.review }}
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No reviews for this week yet.</p>
+    {% endif %}
+    {% endblock %}
+</body>
 </html>
