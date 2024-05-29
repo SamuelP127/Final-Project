@@ -2,36 +2,31 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8">
-    <title>Home Page</title>
+    <title>Write a Review</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/template.css') }}">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1 class="logo">BTHS Reviews</h1>
-            <nav>
-                <ul class="menu">
-                    {% if page == 'home' %}
-                        <li><button class="nav-button" onclick="location.href='{{ url_for('submit_review') }}'">Submit A Review</button></li>
-                        <li><button class="nav-button" onclick="location.href='{{ url_for('about') }}'">About</button></li>
-                        <div class="image-container">
-                            <img src="{{ url_for('static', filename='bths_logo.png') }}" alt="Logo">
-                        </div>
-                    {% elif page == 'submit_review' %}
-                        <li><button class="nav-button" onclick="location.href='{{ url_for('home') }}'">Home</button></li>
-                        <li><button class="nav-button" onclick="location.href='{{ url_for('about') }}'">About</button></li>
-                    {% else %}
-                        <li><button class="nav-button" onclick="location.href='{{ url_for('home') }}'">Home</button></li>
-                        <li><button class="nav-button" onclick="location.href='{{ url_for('submit_review') }}'">Submit A Review</button></li>
-                    {% endif %}
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-
+    {% extends "template.html" %}
     {% block content %}
-    {% endblock %}
+    <h1>Write a Review</h1>
+    <form action="{{ url_for('submit_review') }}" method="POST">
+        <div>
+            <label for="reviewer">Name:</label>
+            <input type="text" id="reviewer" name="reviewer" required>
+        </div>
+        <div>
+            <label for="review">Review:</label>
+            <textarea id="review" name="review" rows="4" required></textarea>
+        </div>
+        <div>
+            <button type="submit">Submit Review</button>
+        </div>
 
+        <div class="review">
+            <div class="heading"></div>
+            <div class="body2"></div>
+        </div>
+    </form>
+    {% endblock %}
 </body>
 </html>
