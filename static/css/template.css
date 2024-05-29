@@ -1,5 +1,5 @@
 body {
-    background-color: white;
+    background: linear-gradient(to left bottom, rgb(255, 81, 0), blue);
     margin: 0;
     height: 100vh;
     position: relative;
@@ -10,6 +10,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
 }
 
 .image-container img {
@@ -49,4 +50,16 @@ body {
 }
 .nav-button:hover {
     background-color: #45a049;
+}
+
+.review {
+    width: 250px;
+    height: 160px;
+    background-color: lightgray;
+    align-items: center;
+    justify-content: center;
+}
+.body2 {
+    justify-content: center;
+    align-items: center;
 }
