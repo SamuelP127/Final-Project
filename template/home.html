@@ -9,15 +9,23 @@
     {% extends "template.html" %}
     {% block content %}
     <h1>Reviews For Week: {{ week_num }}</h1>
+    <div class="email-button">
+        <form action="{{ url_for('send_email') }}" method="GET">
+            <button type="submit">Send Weekly Email</button>
+        </form>
+    </div>
     {% if reviews %}
-        <ul>
-        {% for review in reviews %}
-            <li>
-                <strong>{{ review.reviewer }}</strong> ({{ review.timestamp }}):<br>
-                {{ review.review }}
-            </li>
+        {% for category, category_reviews in reviews.items() %}
+            <h2>{{ category }}</h2>
+            <ul>
+            {% for review in category_reviews %}
+                <li>
+                    <strong>{{ review.reviewer }}</strong> ({{ review.timestamp }}):<br>
+                    {{ review.review }}
+                </li>
+            {% endfor %}
+            </ul>
         {% endfor %}
-        </ul>
     {% else %}
         <p>No reviews for this week yet.</p>
     {% endif %}
