@@ -14,9 +14,6 @@
                     {% if page == 'home' %}
                         <li><button class="nav-button" onclick="location.href='{{ url_for('submit_review') }}'">Submit A Review</button></li>
                         <li><button class="nav-button" onclick="location.href='{{ url_for('about') }}'">About</button></li>
-                        <div class="image-container">
-                            <img src="{{ url_for('static', filename='bths_logo.png') }}" alt="Logo">
-                        </div>
                     {% elif page == 'submit_review' %}
                         <li><button class="nav-button" onclick="location.href='{{ url_for('home') }}'">Home</button></li>
                         <li><button class="nav-button" onclick="location.href='{{ url_for('about') }}'">About</button></li>
@@ -29,6 +26,9 @@
         </div>
     </header>
 
+    <div class="image-container">
+        <img src="{{ url_for('static', filename='bths_logo.png') }}" alt="Logo">
+    </div>
 
     {% block content %}
     {% endblock %}
